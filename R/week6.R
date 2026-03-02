@@ -12,3 +12,5 @@ str_c("The number of blank lines eliminated was ", length(citations) - length(ci
 str_c("The average number of characters/citation was", mean(str_length(citations_txt)))
 
 # Data Cleaning
+citations_tbl %>%
+  slice_sample(n = 20)
