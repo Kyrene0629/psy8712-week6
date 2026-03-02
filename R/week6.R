@@ -27,7 +27,7 @@ citations_tbl <- tibble(line = seq_along(citations_txt), cite = citations_txt) %
          doi = str_extract(cite, pattern = "10\\.\\d{4,}/[-._;()/:A-Za-z0-9]+"),
          perf_ref = str_detect(title, pattern = regex("performance", ignore_case = TRUE)),
          first_author = str_extract(authors, pattern = "^[^,\\s]+,?\\s*[A-Z]\\.?(?:[A-Z]\\.?)*")
-         
+  )
          
          
          
