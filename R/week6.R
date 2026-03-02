@@ -13,7 +13,7 @@ print(str_c("The average number of characters/citation was", mean(str_length(cit
 
 # Data Cleaning
 citations_tbl %>%
-  slice_sample(n = 20)
+  slice_sample(n = 20) %>% View()
 citations_tbl <- tibble(line = seq_along(citations_txt), cite = citations_txt) %>%
   mutate(authors = str_extract(cite, pattern = "^\\*?([^(]+)"),
          year = str_extract(cite, pattern = "(?<=\\()\\d{4}[a-z]?(?=\\))"),
