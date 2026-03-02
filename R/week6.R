@@ -21,3 +21,9 @@ citations_tbl <- tibble(line = seq_along(citations_txt), cite = citations_txt) %
          
          
          
+         
+         
+         doi = str_extract(cite, pattern = "10\\.[0-9]{4,}/[-._;()/:A-Za-z0-9]+")
+         
+         
+         
