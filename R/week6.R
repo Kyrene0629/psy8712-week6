@@ -17,14 +17,17 @@ citations_tbl %>%
 citations_tbl <- tibble(line = seq_along(citations_txt), cite = citations_txt) %>%
   mutate(authors = str_extract(cite, pattern = "^\\*?([^(]+)"),
          year = str_extract(cite, pattern = "(?<=\\()\\d{4}[a-z]?(?=\\))"),
-         title = str_extract(cite, pattern = "(?<=\\)\\.\\s)(?!In\\s+[A-Z]).+?(?=(?:\\sIn\\s+[A-Z](?:\\.|,|$)|\\.\\s[A-Z][a-z]|\\?\\s[A-Z][a-z]|!\\s[A-Z][a-z]|$))"),
+         title = str_extract(cite, pattern = "(?<=\\)\\.\\s).+?(?=\\.\\s[A-Z])"),
          journal_title = ifelse(str_detect(cite, pattern = "In "), NA_character_, str_extract(cite, pattern = "(?<=\\.\\s)[^.,]+(?=,\\s*\\d)")), 
          book_title = ifelse(str_detect(cite, pattern = "In "), str_extract(cite, pattern = "(?<=In\\s).+?(?=\\s\\()"), NA_character_),
          journal_page_start = ifelse(str_detect(cite, pattern = "In "), NA_character_, str_extract(cite, pattern = "(?<=[,:]\\s)\\d+(?=\\s*[-–?])")),
          journal_page_end = ifelse(str_detect(cite, pattern = "In "), NA_character_, str_extract(cite, pattern = "(?<=[-–?])\\d+(?=\\.)")),
          book_page_start = ifelse(str_detect(cite, pattern = "In "), str_extract(cite, pattern = "(?<=pp\\.\\s)\\d+(?=\\s*[-–?])"), NA_character_),
          book_page_end = ifelse(str_detect(cite, pattern = "In "), str_extract(cite, pattern = "(?<=[-–?])\\d+(?=\\))"), NA_character_),
-         doi = str_extract(cite, pattern = "10\\.\\d{4,}/[-._;()/:A-Za-z0-9]+") %>%
+         doi = str_extract(cite, pattern = "10\\.\\d{4,}/[-._;()/:A-Za-z0-9]+"),
+         perf_ref = str_detect(title, pattern = regex("performance", ignore_case = TRUE)),
+         first_author = str_extract(authors, pattern = "^[^,\\s]+,?\\s*[A-Z]\\.?(?:[A-Z]\\.?)*")
+         
          
          
          
