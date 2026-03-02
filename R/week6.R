@@ -18,8 +18,8 @@ citations_tbl <- tibble(line = seq_along(citations_txt), cite = citations_txt) %
   mutate(authors = str_extract(cite, pattern = "^\\*?([^(]+)"),
          year = str_extract(cite, pattern = "(?<=\\()\\d{4}[a-z]?(?=\\))"),
          title = str_extract(cite, pattern = "(?<=\\)\\.\\s)(?!In\\s+[A-Z]).+?(?=(?:\\sIn\\s+[A-Z](?:\\.|,|$)|\\.\\s[A-Z][a-z]|\\?\\s[A-Z][a-z]|!\\s[A-Z][a-z]|$))"),
-         journal_title = ifelse(str_detect(cite, "In "), NA_character_, str_extract(cite, "(?<=\\.\\s)[^.,]+(?=,\\s*\\d)")), 
-         
+         journal_title = ifelse(str_detect(cite, pattern = "In "), NA_character_, str_extract(cite, pattern = "(?<=\\.\\s)[^.,]+(?=,\\s*\\d)")), 
+         book_title = ifelse(str_detect(cite, pattern = "In "), str_extract(cite, pattern = "(?<=In\\s).+?(?=\\s\\()"), NA_character_),
          
          
          
