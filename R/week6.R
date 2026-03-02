@@ -20,10 +20,11 @@ citations_tbl <- tibble(line = seq_along(citations_txt), cite = citations_txt) %
          title = str_extract(cite, pattern = "(?<=\\)\\.\\s)(?!In\\s+[A-Z]).+?(?=(?:\\sIn\\s+[A-Z](?:\\.|,|$)|\\.\\s[A-Z][a-z]|\\?\\s[A-Z][a-z]|!\\s[A-Z][a-z]|$))"),
          journal_title = ifelse(str_detect(cite, pattern = "In "), NA_character_, str_extract(cite, pattern = "(?<=\\.\\s)[^.,]+(?=,\\s*\\d)")), 
          book_title = ifelse(str_detect(cite, pattern = "In "), str_extract(cite, pattern = "(?<=In\\s).+?(?=\\s\\()"), NA_character_),
-         
-         
-         
-         doi = str_extract(cite, pattern = "10\\.[0-9]{4,}/[-._;()/:A-Za-z0-9]+")
+         journal_page_start = ifelse(str_detect(cite, "In "), NA_character_, str_extract(cite, "(?<=[,:]\\s)\\d+(?=\\s*[-–?])")),
+         journal_page_end = ifelse(str_detect(cite, "In "), NA_character_, str_extract(cite, "(?<=[-–?])\\d+(?=\\.)")),
+         book_page_start = ifelse(str_detect(cite, "In "), str_extract(cite, "(?<=pp\\.\\s)\\d+(?=\\s*[-–?])"), NA_character_),
+         book_page_end = ifelse(str_detect(cite, "In "), str_extract(cite, "(?<=[-–?])\\d+(?=\\))"), NA_character_),
+         doi = str_extract(cite, pattern = "10\\.[0-9]{4,}/[-._;()/:A-Za-z0-9]+") %>%
          
          
          
