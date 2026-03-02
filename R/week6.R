@@ -38,4 +38,17 @@ citations_tbl %>%
                    )
     )
          
-         
+
+citations_tbl %>%
+  filter(perf_ref, !is.na(journal_title)) %>%
+  count(journal_name = journal_title, name = "frequency", sort = TRUE) %>%
+  head(10)
+
+
+
+citations_tbl %>%
+  count(citation = cite, name = "frequency", sort = TRUE) %>%
+  head(10)
+
+
+
