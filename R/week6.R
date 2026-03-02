@@ -28,6 +28,14 @@ citations_tbl <- tibble(line = seq_along(citations_txt), cite = citations_txt) %
          perf_ref = str_detect(title, pattern = regex("performance", ignore_case = TRUE)),
          first_author = str_extract(authors, pattern = "^[^,\\s]+,?\\s*[A-Z]\\.?(?:[A-Z]\\.?)*")
   )
-         
+# Analysis
+citations_tbl %>%
+  summarize(
+    cites = n(),
+    first_authors = sum(!is.na(first_author)),
+    articles = sum(!is.na(journal_title)),
+    chapters = sum(!is.na(book_title)
+                   )
+    )
          
          
